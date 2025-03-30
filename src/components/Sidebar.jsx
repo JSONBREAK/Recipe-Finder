@@ -7,7 +7,7 @@ const Sidebar = () => {
     return (
         <>
             <DesktopSidebar />
-            {/* <MobileSidebar /> */}
+            <MobileSidebar />
         </>
     )
 }
@@ -19,16 +19,16 @@ const DesktopSidebar = () => {
         <div className='p-3 md:p-10 border-r min-h-screen w-24 md:w-64 hidden sm:block z-10'>
             <div className='flex flex-col gap-20 sticky top-10 left-0'>
                 <div className='w-full'>
-                    <img src="/logo.svg" alt="logo" className='hidden md:block' />
+                    <img src="/logo.png" alt="logo" className='hidden md:block' />
                     <img src="/mobile-logo.svg" alt="logo" className='block md:hidden' />
                 </div>
                 <ul className='flex flex-col items-center md:items-start gap-8'>
                     <Link to={"/"} className='flex gap-1'>
-                        <Home size={"24"}/>
+                        <Home size={"24"} />
                         <span className='font-bold hidden md:block'>Home</span>
                     </Link>
                     <Link to={"/favorites"} className='flex gap-1'>
-                        <Heart size={"24"}/>
+                        <Heart size={"24"} />
                         <span className='font-bold hidden md:block'>Favorites</span>
                     </Link>
                 </ul>
@@ -39,8 +39,15 @@ const DesktopSidebar = () => {
 
 const MobileSidebar = () => {
     return (
-        <div>
-            <h1>MobileSidebar</h1>
+        <div className='flex justify-center gap-10 border-t-10 fixed w-full
+        bottom-0 bg-white z-10 p-2 sm:hidden
+        '>
+            <Link to={"/"}>
+            <Home size={"24"} className='cursor-pointer'/>
+            </Link>
+            <Link to={"/favorites"}>
+            <Heart size={"24"} className='cursor-pointer'/>
+            </Link>
         </div>
     )
 }
