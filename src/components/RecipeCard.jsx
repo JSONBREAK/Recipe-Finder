@@ -1,15 +1,22 @@
 import { Heart, HeartPulse, Search, Soup } from 'lucide-react'
 import React from 'react'
 
-const RecipeCard = () => {
+
+
+const RecipeCard = ({ recipe,bg,badge }) => {
+    console.log(recipe)
+    if (!recipe) {
+        return <p>Recipe not found</p>; // ถ้าไม่มีข้อมูลสูตร
+    }
     return (
-        <div div class="bg-[#ecf7d4] flex flex-col rounded-md overflow-hidden p-3 relative" >
-            <a href='#' className='relative h-32'>
-                <img src='/1.jpg' alt='recipe img' className='rounded-md w-full h-full object-cover' />
+
+        <div div class={`${bg} flex flex-col rounded-md overflow-hidden p-3 relative`}>
+            <a href={`https://www.youtube.com/results?search_query=${recipe.label} `} target="_blank" className='relative h-32'>
+                <img src={recipe.image} alt='recipe img' className='rounded-md w-full h-full object-cover' />
                 {/* servings */}
                 <div className='pr-4 gap-1 text-sm flex items-center cursor-pointer p-1 left-2 bottom-2 rounded-full bg-white absolute'>
                     <Soup size={16} />
-                    4 servings
+                    {recipe.yield} servings
                 </div>
                 {/* Like btn */}
                 <div className='bg-white absolute text-white top-1 right-2 p-1 cursor-pointer rounded-full flex'>
@@ -17,20 +24,24 @@ const RecipeCard = () => {
                 </div>
             </a>
             <div className='mt-1'>
-                <p className='font-bold tracking-wide'>Whispering Willow Gnocchi</p>
+                <p className='font-bold tracking-wide'>{recipe.label}</p>
             </div>
-            <p className='my-2'>Mexican Kitchen</p>
+            <p className='my-2' >
+                {recipe.cuisineType[0].charAt(0).toUpperCase() + recipe.cuisineType[0].slice(1)} Kitchen
 
-            <div class="flex gap-2 mt-auto">
-                <div class="flex w-1/2 bg-[#bdff9b] items-center gap-1">
-                    <HeartPulse size={14} />
-                    <span className='text-sm tracking-tighter font-semibold'>Sugar-Conscious</span>
-                </div>
-                <div class="flex w-1/2 bg-[#bdff9b] items-center  text-sm gap-1">
-                    <HeartPulse size={14} />
-                    <span className='text-sm tracking-tighter font-semibold'>Keto-Friendly</span>
-                </div>
+            </p>
+            <div className="flex gap-2 mt-auto w-full">
+                {([...recipe.healthLabels?.slice(0, 2) || [], "N/A", "N/A"].slice(0, 2)).map((label, index) => (
+                    <div key={index} className={`flex w-1/2 ${badge} items-center gap-1 p-2 rounded-md justify-center`}>
+                        <HeartPulse size={16} />
+                        <span className="text-sm tracking-tighter font-semibold">{label}</span>
+                    </div>
+                ))}
             </div>
+
+
+
+
         </div >
     )
 }
